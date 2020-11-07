@@ -1,8 +1,6 @@
-using System;
-
-namespace notification.mobile.core
+namespace notification.mobile.core.Dtos
 {
-    public class NotificationEventArgs : EventArgs
+    public class PushNotificationDto
     {
         public string Title { get; set; }
         public string Message { get; set; }

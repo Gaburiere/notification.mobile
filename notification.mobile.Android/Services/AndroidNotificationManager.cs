@@ -4,26 +4,26 @@ using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using notification.mobile.core.Services;
-using Android.Support.V4.App;
 using AndroidX.Core.App;
 using notification.mobile.core;
+using notification.mobile.core.Classes;
 using AndroidApp = Android.App.Application;
 
 namespace notification.mobile.Android.Services
 {
     public class AndroidNotificationManager: INotificationManager
     {
-        const string channelId = "default";
-        const string channelName = "Default";
-        const string channelDescription = "The default channel for notifications.";
-        const int pendingIntentId = 0;
+        private const string ChannelId = "default";
+        private const string ChannelName = "Default";
+        private const string ChannelDescription = "The default channel for notifications.";
+        private const int PendingIntentId = 0;
 
         public const string TitleKey = "title";
         public const string MessageKey = "message";
 
-        bool channelInitialized = false;
-        int messageId = -1;
-        NotificationManager manager;
+        private bool _channelInitialized = false;
+        private int _messageId = -1;
+        private NotificationManager _manager;
         
         
         public event EventHandler NotificationReceived;
@@ -34,20 +34,20 @@ namespace notification.mobile.Android.Services
 
         public int ScheduleNotification(string title, string message)
         {
-            if (!this.channelInitialized)
+            if (!this._channelInitialized)
             {
                 this.CreateNotificationChannel();
             }
 
-            this.messageId++;
+            this._messageId++;
 
             Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
             intent.PutExtra(TitleKey, title);
             intent.PutExtra(MessageKey, message);
 
-            PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, pendingIntentId, intent, PendingIntentFlags.OneShot);
+            PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, PendingIntentId, intent, PendingIntentFlags.OneShot);
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, channelId)
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, ChannelId)
                 .SetContentIntent(pendingIntent)
                 .SetContentTitle(title)
                 .SetContentText(message)
@@ -56,9 +56,9 @@ namespace notification.mobile.Android.Services
                 .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate);
 
             var notification = builder.Build();
-            this.manager.Notify(this.messageId, notification);
+            this._manager.Notify(this._messageId, notification);
 
-            return this.messageId;
+            return this._messageId;
         }
 
         public void ReceiveNotification(string title, string message)
@@ -73,19 +73,19 @@ namespace notification.mobile.Android.Services
         
         private void CreateNotificationChannel()
         {
-            this.manager = (NotificationManager)AndroidApp.Context.GetSystemService(Context.NotificationService);
+            this._manager = (NotificationManager)AndroidApp.Context.GetSystemService(Context.NotificationService);
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
-                var channelNameJava = new Java.Lang.String(channelName);
-                var channel = new NotificationChannel(channelId, channelNameJava, NotificationImportance.Default)
+                var channelNameJava = new Java.Lang.String(ChannelName);
+                var channel = new NotificationChannel(ChannelId, channelNameJava, NotificationImportance.Default)
                 {
-                    Description = channelDescription
+                    Description = ChannelDescription
                 };
-                this.manager?.CreateNotificationChannel(channel);
+                this._manager?.CreateNotificationChannel(channel);
             }
 
-            this.channelInitialized = true;
+            this._channelInitialized = true;
         }
     }
 }

@@ -1,21 +1,21 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using notification.mobile.Annotations;
 using notification.mobile.core;
+using notification.mobile.core.Classes;
 using notification.mobile.core.Services;
 using Xamarin.Forms;
 
-namespace notification.mobile
+namespace notification.mobile.Features.LocalNotifications
 {
-    public class MainViewModel: INotifyPropertyChanged
+    public class LocalNotificationViewModel: INotifyPropertyChanged
     {
         private readonly INotificationManager _notificationManager;
         private string _message;
         private string _title;
         public ICommand LocalNotifyCommand { get; private set; }
 
-        public MainViewModel()
+        public LocalNotificationViewModel()
         {
             this._notificationManager = DependencyService.Get<INotificationManager>();
             this._notificationManager.Initialize();

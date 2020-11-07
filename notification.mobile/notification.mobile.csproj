@@ -16,4 +16,19 @@
     <ItemGroup>
       <ProjectReference Include="..\notification.mobile.core\notification.mobile.core.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Features\MainShell.xaml.cs">
+        <DependentUpon>MainShell.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Features\PushNotifications\PushNotificationPage.xaml.cs">
+        <DependentUpon>PushNotificationPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Features\LocalNotifications\LocalNotificationPage.xaml.cs">
+        <DependentUpon>MainPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>

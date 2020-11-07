@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using notification.mobile.Features;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -10,8 +11,8 @@ namespace notification.mobile
         public App()
         {
             this.InitializeComponent();
-
-            this.MainPage = new MainPage();
+            var mainShell = new MainShell();
+            this.MainPage = mainShell;
         }
 
         protected override void OnStart()

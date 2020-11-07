@@ -1,5 +1,6 @@
 using System;
 using notification.mobile.core;
+using notification.mobile.core.Classes;
 using notification.mobile.core.Services;
 using UserNotifications;
 
