@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="RIDER_MODULE" version="4">
   <component name="NewModuleRootManager">
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.android.arch.lifecycle.runtime/1.1.1.3/proguard/monoandroid90/proguard.txt" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.android.arch.lifecycle.viewmodel/1.1.1.3/proguard/monoandroid90/proguard.txt" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.android.support.animated.vector.drawable/28.0.0.3/proguard/monoandroid90/proguard.txt" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.android.support.compat/28.0.0.3/proguard/monoandroid90/proguard.txt" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.android.support.coordinaterlayout/28.0.0.3/proguard/monoandroid90/proguard.txt" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.android.support.v7.appcompat/28.0.0.3/proguard/monoandroid90/proguard.txt" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.android.support.versionedparcelable/28.0.0.3/proguard/monoandroid90/proguard.txt" />
     <content url="file://$USER_HOME$/.nuget/packages/xamarin.androidx.activity/1.0.0.1/aar/androidx.activity.activity.aar" />
     <content url="file://$USER_HOME$/.nuget/packages/xamarin.androidx.annotation/1.1.0.7/jar" />
     <content url="file://$USER_HOME$/.nuget/packages/xamarin.androidx.appcompat.appcompatresources/1.1.0.1/aar/androidx.appcompat.appcompat-resources.aar" />
@@ -53,10 +60,30 @@
     <content url="file://$USER_HOME$/.nuget/packages/xamarin.androidx.versionedparcelable/1.1.1.5/aar" />
     <content url="file://$USER_HOME$/.nuget/packages/xamarin.androidx.versionedparcelable/1.1.1.5/proguard" />
     <content url="file://$USER_HOME$/.nuget/packages/xamarin.androidx.viewpager/1.0.0.1/aar/androidx.viewpager.viewpager.aar" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.firebase.common/119.3.0/proguard/MonoAndroid90/proguard.txt" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.firebase.components/116.0.0/proguard/MonoAndroid90/proguard.txt" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.firebase.encoders.json/116.1.0/proguard/MonoAndroid90/proguard.txt" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.firebase.messaging/120.1.7/proguard/MonoAndroid90/proguard.txt" />
     <content url="file://$USER_HOME$/.nuget/packages/xamarin.forms/4.8.0.1560/buildTransitive/MonoAndroid10" />
     <content url="file://$USER_HOME$/.nuget/packages/xamarin.google.android.material/1.0.0.1/aar/com.google.android.material.material.aar" />
     <content url="file://$USER_HOME$/.nuget/packages/xamarin.google.android.material/1.0.0.1/proguard/proguard.txt" />
     <content url="file://$USER_HOME$/.nuget/packages/xamarin.google.guava.listenablefuture/1.0.0.2/buildTransitive/monoandroid50" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.googleplayservices.base/117.2.1/proguard/MonoAndroid90/proguard.txt" />
+    <content url="file://$USER_HOME$/.nuget/packages/xamarin.googleplayservices.basement/117.2.1/proguard/MonoAndroid90" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/firebasecommon-19.3.0" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/firebasecomponents-16.0.0" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/firebasedatatransport-17.0.5" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/firebaseencodersjson-16.1.0" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/firebaseiid-20.1.7" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/firebaseiidinterop-17.0.0" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/firebaseinstallations-16.3.0" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/firebaseinstallationsinterop-16.0.0" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/firebasemeasurementconnector-18.0.0" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/firebasemessaging-20.1.7" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/playservicesbase-17.2.1" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/playservicesbasement-17.2.1" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/playservicesstats-17.0.0" />
+    <content url="file://$USER_HOME$/Library/Caches/XamarinBuildDownload/playservicestasks-17.0.2" />
     <content url="file://$MODULE_DIR$/../.." />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

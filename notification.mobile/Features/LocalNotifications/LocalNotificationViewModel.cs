@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using notification.mobile.core;
 using notification.mobile.core.Classes;
 using notification.mobile.core.Services;
 using Xamarin.Forms;
