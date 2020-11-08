@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Shell
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:localNotifications="clr-namespace:notification.mobile.Features.LocalNotifications;assembly=notifications.mobile"
+    xmlns:pushNotifications="clr-namespace:notification.mobile.Features.PushNotifications;assembly=notifications.mobile"
+    x:Class="notification.mobile.Features.MainShell">
+    <TabBar>
+        <Tab
+            Title="Local"
+            >
+            <ShellContent>
+                <localNotifications:LocalNotificationPage />
+            </ShellContent>
+        </Tab>
+        <Tab
+            Title="Push"
+            >
+            <ShellContent>
+                <pushNotifications:PushNotificationPage />
+            </ShellContent>
+        </Tab>
+    </TabBar>
+</Shell>

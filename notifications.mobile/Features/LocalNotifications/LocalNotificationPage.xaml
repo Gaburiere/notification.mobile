@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:localNotifications="clr-namespace:notification.mobile.Features.LocalNotifications;assembly=notifications.mobile"
+    x:DataType="localNotifications:LocalNotificationViewModel"
+    Shell.NavBarIsVisible="False"
+    x:Class="notification.mobile.Features.LocalNotifications.LocalNotificationPage">
+
+    <StackLayout
+        VerticalOptions="Center"
+        Margin="10,0"
+        Orientation="Vertical">
+        <Label Text="Local Notifications!"
+               FontSize="Medium"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand" />
+        <Label Text="Please insert title and message you'd want to send as local notification"
+               FontSize="Small"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand" />
+        <Entry
+            Text="{Binding Title}"
+            HorizontalOptions="Fill"
+            Placeholder="Title" />
+        <Entry
+            Text="{Binding Message}"
+            HorizontalOptions="Fill"
+            Placeholder="Message" />
+        <Button
+            Command="{Binding LocalNotifyCommand}"
+            HorizontalOptions="Fill"
+            Text="Push to local notify" />
+    </StackLayout>
+
+</ContentPage>

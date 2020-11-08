@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "251943655200",
+    "firebase_url": "https://notifications-9ff65.firebaseio.com",
+    "project_id": "notifications-9ff65",
+    "storage_bucket": "notifications-9ff65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251943655200:android:b7434a25957bb6078ca945",
+        "android_client_info": {
+          "package_name": "it.gaburiere.notifications"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "251943655200-t9g7t5gpqhkh549cn0kq443l6tn3lrj3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSCS8iA0Q7NKSd4CKdXbmdtOnV1ewPwJQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "251943655200-t9g7t5gpqhkh549cn0kq443l6tn3lrj3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
