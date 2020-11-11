@@ -1,7 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using WindowsAzure.Messaging;
 using Android.App;
+using Android.Content;
+using Android.Graphics;
+using Android.OS;
+using Android.Support.V4.App;
 using Android.Util;
 using Firebase.Messaging;
 using notification.mobile.core.Classes;
@@ -59,8 +64,32 @@ namespace notification.mobile.Android.Services
             }
 
             // convert the incoming message to a local notification
-            var notificationManager = DependencyService.Resolve<INotificationManager>();
-            notificationManager.ScheduleNotification("", messageBody);
+            SendLocalNotification(message.Data);
+        }
+        void SendLocalNotification(IDictionary<string, string> data)
+        {
+            var intent = new Intent(this, typeof(MainActivity));
+            intent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.NewTask);
+            // intent.PutExtra("message", data["message"]);
+
+            var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
+
+            var notificationBuilder = new NotificationCompat.Builder(this, AppConstants.NotificationChannelName)
+                // .SetContentTitle(data["title"])
+                .SetSmallIcon(Resource.Drawable.ic_audiotrack_dark)
+                .SetContentText(data["message"])
+                .SetAutoCancel(true)
+                .SetShowWhen(false)
+                .SetContentIntent(pendingIntent);
+
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                notificationBuilder.SetChannelId(AppConstants.NotificationChannelName);
+            }
+
+            var notificationManager = NotificationManager.FromContext(this);
+            notificationManager.Notify(0, notificationBuilder.Build());
         }
 
     }
