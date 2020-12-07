@@ -21,7 +21,7 @@ namespace notification.mobile.Android
             ToolbarResource = Resource.Layout.Toolbar;
 
             //registers the INotificationManager interface implementation with the DependencyService.
-            DependencyService.Register<INotificationManager, AndroidNotificationManager>();
+            DependencyService.RegisterSingleton<INotificationManager>(new AndroidNotificationManager());
             
             base.OnCreate(savedInstanceState);
             Forms.Init(this, savedInstanceState);
@@ -32,11 +32,12 @@ namespace notification.mobile.Android
             if (this.IsPlayServiceAvailable())
             {
                 // DependencyService.Resolve<INotificationManager>().Initialize();
-                CreateNotificationChannel();
+                this.CreateNotificationChannel();
             }
             
         }
-        void CreateNotificationChannel()
+
+        protected virtual void CreateNotificationChannel()
         {
             // Notification channels are new as of "Oreo".
             // There is no need to create a notification channel on older versions of Android.
@@ -84,9 +85,13 @@ namespace notification.mobile.Android
         {
             if (intent?.Extras != null)
             {
-                var title = intent.Extras.GetString(AndroidNotificationManager.TitleKey);
-                var message = intent.Extras.GetString(AndroidNotificationManager.MessageKey);
-                DependencyService.Get<INotificationManager>().ReceiveNotification(title, message);
+                var title = intent.Extras.GetString(AppConstants.TitleKey);
+                var message = intent.Extras.GetString(AppConstants.MessageKey);
+                var type = intent.Extras.GetString(AppConstants.TypeKey);
+                if(type == "local")
+                    DependencyService.Get<INotificationManager>().ReceiveLocalNotification(title, message);
+                else
+                    DependencyService.Get<INotificationManager>().ReceivePushNotification(title, message);
             }
         }
     }

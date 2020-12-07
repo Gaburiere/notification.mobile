@@ -10,8 +10,9 @@ namespace notification.mobile.iOS.Services
         int messageId = -1;
         bool hasNotificationsPermission;
         
-        public event EventHandler<string> NotificationReceived;
-        
+        public event EventHandler LocalNotificationReceived;
+        public event EventHandler PushNotificationReceived;
+
         public void Initialize()
         {
             // request the permission to use local notifications
@@ -55,14 +56,25 @@ namespace notification.mobile.iOS.Services
             return this.messageId;
         }
 
-        public void ReceiveNotification(string title, string message)
+        public void ReceiveLocalNotification(string title, string message)
         {
             var args = new NotificationEventArgs()
             {
                 Title = title,
                 Message = message
             };
-            this.NotificationReceived?.Invoke(null, message);
+            this.LocalNotificationReceived?.Invoke(this, args);
+        }
+
+        public void ReceivePushNotification(string title, string message)
+        {
+            var args = new NotificationEventArgs()
+            {
+                Title = title,
+                Message = message
+            };
+            
+            this.PushNotificationReceived?.Invoke(this, args);
         }
     }
 }

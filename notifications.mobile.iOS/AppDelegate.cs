@@ -56,8 +56,7 @@ namespace notification.mobile.iOS
                                                                       UNAuthorizationOptions.Sound,
                     (granted, error) =>
                     {
-                        if (granted)
-                            InvokeOnMainThread(UIApplication.SharedApplication.RegisterForRemoteNotifications);
+                        if (granted) this.InvokeOnMainThread(UIApplication.SharedApplication.RegisterForRemoteNotifications);
                     });
             }
             else if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
@@ -78,10 +77,10 @@ namespace notification.mobile.iOS
         
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
         {
-            Hub = new SBNotificationHub(AppConstants.ListenConnectionString, AppConstants.NotificationHubName);
+            this.Hub = new SBNotificationHub(AppConstants.ListenConnectionString, AppConstants.NotificationHubName);
 
             // update registration with Azure Notification Hub
-            Hub.UnregisterAll(deviceToken, (error) =>
+            this.Hub.UnregisterAll(deviceToken, (error) =>
             {
                 if (error != null)
                 {
@@ -90,7 +89,7 @@ namespace notification.mobile.iOS
                 }
 
                 var tags = new NSSet(AppConstants.SubscriptionTags.ToArray());
-                Hub.RegisterNative(deviceToken, tags, (errorCallback) =>
+                this.Hub.RegisterNative(deviceToken, tags, (errorCallback) =>
                 {
                     if (errorCallback != null)
                     {
@@ -99,7 +98,7 @@ namespace notification.mobile.iOS
                 });
 
                 var templateExpiration = DateTime.Now.AddDays(120).ToString(System.Globalization.CultureInfo.CreateSpecificCulture("en-US"));
-                Hub.RegisterTemplate(deviceToken, "defaultTemplate", AppConstants.APNTemplateBody, templateExpiration, tags, (errorCallback) =>
+                this.Hub.RegisterTemplate(deviceToken, "defaultTemplate", AppConstants.APNTemplateBody, templateExpiration, tags, (errorCallback) =>
                 {
                     if (errorCallback != null)
                     {
@@ -114,7 +113,7 @@ namespace notification.mobile.iOS
         
         public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
         {
-            ProcessNotification(userInfo, false);
+            this.ProcessNotification(userInfo, false);
         }
 
         void ProcessNotification(NSDictionary options, bool fromFinishedLaunching)

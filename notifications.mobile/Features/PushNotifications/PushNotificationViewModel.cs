@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using notification.mobile.core.Classes;
 using notification.mobile.core.Dtos;
 using notification.mobile.core.Services;
 using Xamarin.Forms;
@@ -16,9 +17,14 @@ namespace notification.mobile.Features.PushNotifications
         {
             this.PushNotifications = new ObservableCollection<PushNotificationDto>();
             this._notificationManager = DependencyService.Get<INotificationManager>();
-            this._notificationManager.NotificationReceived += (sender, s) =>
+            this._notificationManager.PushNotificationReceived += (sender, s) =>
             {
-                this.PushNotifications.Add(new PushNotificationDto(){Message = s});
+                var notificationEventArgs = (NotificationEventArgs) s;
+                this.PushNotifications.Add(new PushNotificationDto()
+                {
+                    Title = notificationEventArgs.Title,
+                    Message = notificationEventArgs.Message
+                });
             };
         }
         

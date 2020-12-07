@@ -21,7 +21,8 @@
         <CollectionView.ItemTemplate>
             <DataTemplate
                 x:DataType="dtos:PushNotificationDto">
-                <ContentView>
+                <ContentView
+                    Margin="10">
                     <StackLayout
                         Orientation="Vertical">
                         <Label

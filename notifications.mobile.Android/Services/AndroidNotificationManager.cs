@@ -18,15 +18,14 @@ namespace notification.mobile.Android.Services
         private const string ChannelDescription = "The default channel for notifications.";
         private const int PendingIntentId = 0;
 
-        public const string TitleKey = "title";
-        public const string MessageKey = "message";
-
         private bool _channelInitialized = false;
         private int _messageId = -1;
         private NotificationManager _manager;
         
         
-        public event EventHandler<string> NotificationReceived;
+        public event EventHandler LocalNotificationReceived;
+        public event EventHandler PushNotificationReceived;
+
         public void Initialize()
         {
             this.CreateNotificationChannel();
@@ -42,8 +41,9 @@ namespace notification.mobile.Android.Services
             this._messageId++;
 
             Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
-            intent.PutExtra(TitleKey, title);
-            intent.PutExtra(MessageKey, message);
+            intent.PutExtra(AppConstants.TitleKey, title);
+            intent.PutExtra(AppConstants.MessageKey, message);
+            intent.PutExtra(AppConstants.TypeKey, "local");
 
             PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, PendingIntentId, intent, PendingIntentFlags.OneShot);
 
@@ -61,16 +61,26 @@ namespace notification.mobile.Android.Services
             return this._messageId;
         }
 
-        public void ReceiveNotification(string title, string message)
+        public void ReceiveLocalNotification(string title, string message)
         {
             var args = new NotificationEventArgs()
             {
                 Title = title,
                 Message = message,
             };
-            this.NotificationReceived?.Invoke(null, message);
+            this.LocalNotificationReceived?.Invoke(null, args);
         }
-        
+
+        public void ReceivePushNotification(string title, string message)
+        {
+            var args = new NotificationEventArgs()
+            {
+                Title = title,
+                Message = message,
+            };
+            this.PushNotificationReceived?.Invoke(this, args);
+        }
+
         private void CreateNotificationChannel()
         {
             this._manager = (NotificationManager)AndroidApp.Context.GetSystemService(Context.NotificationService);

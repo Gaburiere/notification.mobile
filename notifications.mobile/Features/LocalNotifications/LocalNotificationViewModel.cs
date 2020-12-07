@@ -17,10 +17,10 @@ namespace notification.mobile.Features.LocalNotifications
         public LocalNotificationViewModel()
         {
             this._notificationManager = DependencyService.Get<INotificationManager>();
-            this._notificationManager.NotificationReceived += (sender, eventArgs) =>
+            this._notificationManager.LocalNotificationReceived += (sender, eventArgs) =>
             {
-                var body = (string)eventArgs;
-                this.ShowNotification("Title", body);
+                var notificationEventArgs = (NotificationEventArgs) eventArgs;
+                this.ShowNotification(notificationEventArgs.Title, notificationEventArgs.Message);
             };
             
             this.LocalNotifyCommand = new Command(() => this.InnerLocalNotify());

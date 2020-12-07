@@ -5,6 +5,7 @@ namespace notification.mobile.Features.PushNotifications
         public PushNotificationPage()
         {
             this.InitializeComponent();
+            this.BindingContext = new PushNotificationViewModel();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace notification.mobile.Android.Services
         public override void OnNewToken(string token)
         {
             // NOTE: save token instance locally, or log if desired
-            SendRegistrationToServer(token);
+            this.SendRegistrationToServer(token);
         }
 
         private void SendRegistrationToServer(string token)
@@ -51,26 +51,33 @@ namespace notification.mobile.Android.Services
         public override void OnMessageReceived(RemoteMessage message)
         {
             base.OnMessageReceived(message);
-            string messageBody = string.Empty;
+            var messageBody = string.Empty;
+            var messageTitle = string.Empty;
 
             if (message.GetNotification() != null)
             {
                 messageBody = message.GetNotification().Body;
+                messageTitle = message.GetNotification().Title;
             }
             // NOTE: test messages sent via the Azure portal will be received here
             else
             {
-                messageBody = message.Data.Values.First();
+                messageBody = message.Data.Values.ElementAt(0);
+                messageTitle = message.Data.Values.ElementAt(1);
             }
 
             // convert the incoming message to a local notification
-            SendLocalNotification(messageBody);
+            this.SendLocalNotification(messageBody);
+            
+            DependencyService.Get<INotificationManager>()
+                .ReceivePushNotification(messageTitle, messageBody);
         }
         void SendLocalNotification(string body)
         {
             var intent = new Intent(this, typeof(MainActivity));
             intent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.NewTask);
-            // intent.PutExtra("message", data["message"]);
+            intent.PutExtra(AppConstants.TypeKey, "push");
+            intent.PutExtra(AppConstants.TypeKey, body);
 
             var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
 
@@ -91,7 +98,5 @@ namespace notification.mobile.Android.Services
             var notificationManager = NotificationManager.FromContext(this);
             notificationManager.Notify(0, notificationBuilder.Build());
         }
-
     }
-
 }
