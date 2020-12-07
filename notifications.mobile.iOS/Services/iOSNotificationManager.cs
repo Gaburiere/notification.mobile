@@ -1,5 +1,4 @@
 using System;
-using notification.mobile.core;
 using notification.mobile.core.Classes;
 using notification.mobile.core.Services;
 using UserNotifications;
@@ -11,7 +10,7 @@ namespace notification.mobile.iOS.Services
         int messageId = -1;
         bool hasNotificationsPermission;
         
-        public event EventHandler NotificationReceived;
+        public event EventHandler<string> NotificationReceived;
         
         public void Initialize()
         {
@@ -63,7 +62,7 @@ namespace notification.mobile.iOS.Services
                 Title = title,
                 Message = message
             };
-            this.NotificationReceived?.Invoke(null, args);
+            this.NotificationReceived?.Invoke(null, message);
         }
     }
 }

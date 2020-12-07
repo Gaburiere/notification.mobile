@@ -64,9 +64,9 @@ namespace notification.mobile.Android.Services
             }
 
             // convert the incoming message to a local notification
-            SendLocalNotification(message.Data);
+            SendLocalNotification(messageBody);
         }
-        void SendLocalNotification(IDictionary<string, string> data)
+        void SendLocalNotification(string body)
         {
             var intent = new Intent(this, typeof(MainActivity));
             intent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.NewTask);
@@ -77,7 +77,7 @@ namespace notification.mobile.Android.Services
             var notificationBuilder = new NotificationCompat.Builder(this, AppConstants.NotificationChannelName)
                 // .SetContentTitle(data["title"])
                 .SetSmallIcon(Resource.Drawable.ic_audiotrack_dark)
-                .SetContentText(data["message"])
+                .SetContentText(body)
                 .SetAutoCancel(true)
                 .SetShowWhen(false)
                 .SetContentIntent(pendingIntent);

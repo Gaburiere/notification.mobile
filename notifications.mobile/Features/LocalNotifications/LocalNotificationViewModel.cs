@@ -19,8 +19,8 @@ namespace notification.mobile.Features.LocalNotifications
             this._notificationManager = DependencyService.Get<INotificationManager>();
             this._notificationManager.NotificationReceived += (sender, eventArgs) =>
             {
-                var evtData = (NotificationEventArgs)eventArgs;
-                this.ShowNotification(evtData.Title, evtData.Message);
+                var body = (string)eventArgs;
+                this.ShowNotification("Title", body);
             };
             
             this.LocalNotifyCommand = new Command(() => this.InnerLocalNotify());

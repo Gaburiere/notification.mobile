@@ -10,9 +10,12 @@
     x:Class="notification.mobile.Features.PushNotifications.PushNotificationPage">
 
     <CollectionView
+        HorizontalOptions="Center"
         ItemsSource="{Binding PushNotifications}">
         <CollectionView.EmptyView>
             <Label
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
                 Text="No push notification yet..."/>
         </CollectionView.EmptyView>
         <CollectionView.ItemTemplate>

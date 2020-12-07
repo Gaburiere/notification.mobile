@@ -26,7 +26,7 @@ namespace notification.mobile.Android.Services
         private NotificationManager _manager;
         
         
-        public event EventHandler NotificationReceived;
+        public event EventHandler<string> NotificationReceived;
         public void Initialize()
         {
             this.CreateNotificationChannel();
@@ -68,7 +68,7 @@ namespace notification.mobile.Android.Services
                 Title = title,
                 Message = message,
             };
-            this.NotificationReceived?.Invoke(null, args);
+            this.NotificationReceived?.Invoke(null, message);
         }
         
         private void CreateNotificationChannel()
