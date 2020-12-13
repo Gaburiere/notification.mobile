@@ -1,4 +1,5 @@
-﻿using notification.mobile.Features;
+﻿using notification.mobile.core.Classes;
+using notification.mobile.Features;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

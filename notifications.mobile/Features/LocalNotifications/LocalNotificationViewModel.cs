@@ -20,22 +20,9 @@ namespace notification.mobile.Features.LocalNotifications
             this._notificationManager.LocalNotificationReceived += (sender, eventArgs) =>
             {
                 var notificationEventArgs = (NotificationEventArgs) eventArgs;
-                this.ShowNotification(notificationEventArgs.Title, notificationEventArgs.Message);
             };
             
             this.LocalNotifyCommand = new Command(() => this.InnerLocalNotify());
-        }
-
-        private void ShowNotification(string title, string message)
-        {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                var msg = new Label()
-                {
-                    Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
-                };
-                
-            });
         }
 
         private void InnerLocalNotify()

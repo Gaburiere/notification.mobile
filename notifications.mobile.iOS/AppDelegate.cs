@@ -54,10 +54,10 @@ namespace notification.mobile.iOS
                 UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert |
                                                                       UNAuthorizationOptions.Badge |
                                                                       UNAuthorizationOptions.Sound,
-                    (granted, error) =>
-                    {
-                        if (granted) this.InvokeOnMainThread(UIApplication.SharedApplication.RegisterForRemoteNotifications);
-                    });
+                (granted, error) =>
+                {
+                    if (granted) this.InvokeOnMainThread(UIApplication.SharedApplication.RegisterForRemoteNotifications);
+                });
             }
             else if (UIDevice.CurrentDevice.CheckSystemVersion(8, 0))
             {

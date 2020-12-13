@@ -12,7 +12,7 @@ using Xamarin.Forms;
 namespace notification.mobile.Android
 {
     [Activity(Label = "notifications.mobile", Theme = "@style/MainTheme", MainLauncher = true,
-        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, LaunchMode = LaunchMode.SingleTop)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -23,6 +23,10 @@ namespace notification.mobile.Android
             //registers the INotificationManager interface implementation with the DependencyService.
             DependencyService.RegisterSingleton<INotificationManager>(new AndroidNotificationManager());
             
+            var title = Intent?.Extras?.GetString(AppConstants.TitleKey);
+            var message = Intent?.Extras?.GetString(AppConstants.MessageKey);
+            var type = Intent?.Extras?.GetString(AppConstants.TypeKey);
+
             base.OnCreate(savedInstanceState);
             Forms.Init(this, savedInstanceState);
             this.LoadApplication(new App());
@@ -35,9 +39,24 @@ namespace notification.mobile.Android
                 this.CreateNotificationChannel();
             }
             
+            this.CreateNotificationFromIntent(title, message, type);
+            
         }
 
-        protected virtual void CreateNotificationChannel()
+        private void CreateNotificationFromIntent(string title, string message, string type)
+        {
+            switch (type)
+            {
+                case "local":
+                    DependencyService.Get<INotificationManager>().ReceiveLocalNotification(title, message);
+                    break;
+                case "push":
+                    DependencyService.Get<INotificationManager>().ReceivePushNotification(title, message);
+                    break;
+            }
+        }
+
+        void CreateNotificationChannel()
         {
             // Notification channels are new as of "Oreo".
             // There is no need to create a notification channel on older versions of Android.
@@ -75,6 +94,7 @@ namespace notification.mobile.Android
         {
             //If the application is already in the foreground, the Intent data will be passed to the OnNewIntent method.
             this.CreateNotificationFromIntent(intent);
+            base.OnNewIntent(intent);
         }
 
         /// <summary>
@@ -88,10 +108,15 @@ namespace notification.mobile.Android
                 var title = intent.Extras.GetString(AppConstants.TitleKey);
                 var message = intent.Extras.GetString(AppConstants.MessageKey);
                 var type = intent.Extras.GetString(AppConstants.TypeKey);
-                if(type == "local")
-                    DependencyService.Get<INotificationManager>().ReceiveLocalNotification(title, message);
-                else
-                    DependencyService.Get<INotificationManager>().ReceivePushNotification(title, message);
+                switch (type)
+                {
+                    case "local":
+                        DependencyService.Get<INotificationManager>().ReceiveLocalNotification(title, message);
+                        break;
+                    case "push":
+                        DependencyService.Get<INotificationManager>().ReceivePushNotification(title, message);
+                        break;
+                }
             }
         }
     }

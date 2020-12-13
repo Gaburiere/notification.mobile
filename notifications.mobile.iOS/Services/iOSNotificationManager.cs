@@ -29,7 +29,7 @@ namespace notification.mobile.iOS.Services
             // EARLY OUT: app doesn't have permissions
             if(!this.hasNotificationsPermission)
             {
-                return -1;
+                this.Initialize();
             }
 
             this.messageId++;
@@ -46,6 +46,7 @@ namespace notification.mobile.iOS.Services
             // Create a time-based trigger, interval is in seconds and must be greater than 0
             var trigger = UNTimeIntervalNotificationTrigger.CreateTrigger(0.25, false);
 
+            // request creation
             var request = UNNotificationRequest.FromIdentifier(this.messageId.ToString(), content, trigger);
             UNUserNotificationCenter.Current.AddNotificationRequest(request, (err) =>
             {

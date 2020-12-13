@@ -18,7 +18,7 @@ namespace notification.mobile.core.Classes
         public static string[] SubscriptionTags { get; set; } = { "default" };
         public static string FCMTemplateBody { get; set; } = "{\"data\":{\"message\":\"$(messageParam)\"}}";
         public static string APNTemplateBody { get; set; } = "{\"aps\":{\"alert\":\"$(messageParam)\"}}";
-        
+
         public static string TitleKey = "title";
         public static string MessageKey = "message";
         public static string TypeKey = "type";

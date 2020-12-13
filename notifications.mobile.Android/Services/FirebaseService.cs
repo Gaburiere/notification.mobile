@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using WindowsAzure.Messaging;
 using Android.App;
 using Android.Content;
-using Android.Graphics;
 using Android.OS;
 using Android.Support.V4.App;
 using Android.Util;
@@ -67,23 +65,24 @@ namespace notification.mobile.Android.Services
             }
 
             // convert the incoming message to a local notification
-            this.SendLocalNotification(messageBody);
+            this.SendLocalNotification(messageTitle, messageBody);
             
             DependencyService.Get<INotificationManager>()
                 .ReceivePushNotification(messageTitle, messageBody);
         }
-        void SendLocalNotification(string body)
+        void SendLocalNotification(string title, string body)
         {
             var intent = new Intent(this, typeof(MainActivity));
             intent.AddFlags(ActivityFlags.ClearTop | ActivityFlags.NewTask);
             intent.PutExtra(AppConstants.TypeKey, "push");
-            intent.PutExtra(AppConstants.TypeKey, body);
+            intent.PutExtra(AppConstants.TitleKey, title);
+            intent.PutExtra(AppConstants.MessageKey, body);
 
             var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
 
             var notificationBuilder = new NotificationCompat.Builder(this, AppConstants.NotificationChannelName)
-                // .SetContentTitle(data["title"])
-                .SetSmallIcon(Resource.Drawable.ic_audiotrack_dark)
+                .SetContentTitle(title)
+                .SetSmallIcon(Resource.Drawable.ic_vol_mute)
                 .SetContentText(body)
                 .SetAutoCancel(true)
                 .SetShowWhen(false)

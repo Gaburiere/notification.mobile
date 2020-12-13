@@ -5,7 +5,6 @@ using Android.Graphics;
 using Android.OS;
 using notification.mobile.core.Services;
 using AndroidX.Core.App;
-using notification.mobile.core;
 using notification.mobile.core.Classes;
 using AndroidApp = Android.App.Application;
 
@@ -22,14 +21,8 @@ namespace notification.mobile.Android.Services
         private int _messageId = -1;
         private NotificationManager _manager;
         
-        
         public event EventHandler LocalNotificationReceived;
         public event EventHandler PushNotificationReceived;
-
-        public void Initialize()
-        {
-            this.CreateNotificationChannel();
-        }
 
         public int ScheduleNotification(string title, string message)
         {
@@ -40,22 +33,27 @@ namespace notification.mobile.Android.Services
 
             this._messageId++;
 
+            // notification intent instance
             Intent intent = new Intent(AndroidApp.Context, typeof(MainActivity));
             intent.PutExtra(AppConstants.TitleKey, title);
             intent.PutExtra(AppConstants.MessageKey, message);
             intent.PutExtra(AppConstants.TypeKey, "local");
 
+            // get intent from current activity
             PendingIntent pendingIntent = PendingIntent.GetActivity(AndroidApp.Context, PendingIntentId, intent, PendingIntentFlags.OneShot);
-
+            
+            //build notification
             NotificationCompat.Builder builder = new NotificationCompat.Builder(AndroidApp.Context, ChannelId)
                 .SetContentIntent(pendingIntent)
                 .SetContentTitle(title)
                 .SetContentText(message)
                 .SetLargeIcon(BitmapFactory.DecodeResource(AndroidApp.Context.Resources, Resource.Drawable.abc_ic_ab_back_material))
-                .SetSmallIcon(Resource.Drawable.abc_ic_ab_back_material)
+                .SetSmallIcon(Resource.Drawable.ic_vol_unmute)
                 .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate);
 
             var notification = builder.Build();
+            
+            // notify
             this._manager.Notify(this._messageId, notification);
 
             return this._messageId;
@@ -83,6 +81,7 @@ namespace notification.mobile.Android.Services
 
         private void CreateNotificationChannel()
         {
+            // native notification manager instance
             this._manager = (NotificationManager)AndroidApp.Context.GetSystemService(Context.NotificationService);
 
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
@@ -92,6 +91,8 @@ namespace notification.mobile.Android.Services
                 {
                     Description = ChannelDescription
                 };
+                
+                // channel creation
                 this._manager?.CreateNotificationChannel(channel);
             }
 
